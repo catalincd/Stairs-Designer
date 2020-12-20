@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stairs Designer</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="elements.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div id="wrapper">
+			<div id="room">
+				<div id="stair"></div>
+				<div id="handrail"></div>
+				<div id="newel"></div>
+				<div id="baluster"></div>
+			</div>
+			<div id="controls">
+				<label for="steps">Steps: </label>
+ 				<input type="range" id="steps" name="steps" min="2" max="8" value="5" onchange="stepsout.value=value"><br><br>
+ 				<output id="stepsout">5</output>
+ 				
+ 				<h1>Baluster</h1>
+ 				<div id="balusterRadios"></div>
+
+				<h1>Newel</h1>
+ 				<input type="radio" id="n1" name="newel" value="B3940" checked>
+				&nbsp;<label for="n1">B3940</label><br>
+				<input type="radio" id="n2" name="newel" value="4091">
+				&nbsp;<label for="n2">4091</label><br>
+			</div>
+		</div>
+	</div>
+	<script src="index.js"></script>
+</body>
+</html>

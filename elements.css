@@ -1,0 +1,25 @@
+.step{
+	position: absolute;
+	height: 5rem;
+}
+
+.rail{
+	position: absolute;
+	height: 3.185rem;
+}
+
+.baluster{
+	position: absolute;
+	height: 10.23rem;
+	transform: translateY(-10.23rem);
+}
+
+.newel{
+	position: absolute;
+	height: 12.4rem;
+	transform: translateY(-100%);
+}
+
+.crop1{
+	height: 9rem;
+}

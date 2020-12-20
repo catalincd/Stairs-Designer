@@ -1,0 +1,65 @@
+ *{
+ 	margin: 0;
+ 	padding: 0;
+ 	box-sizing: border-box;
+ }
+
+
+ body{
+ 	background: #ccc;
+ }
+
+
+
+#container{
+	width: 100%;
+	margin: 3rem auto;
+}
+
+#wrapper{
+	margin: 0 auto;
+	width: 80%;
+	display: block;
+}
+
+#room{
+	background: #a7aa8b;
+	border-radius: 30px;
+	width: 48rem;
+	height: 36rem;
+	display: inline-block;
+	position: relative;
+	float:left;
+	margin-right: 2rem;
+	transition: all .3s ease;
+}
+
+#controls{
+	left: 50rem;
+	padding: 2rem;
+	margin-left: 5rem;
+	height: 5rem;
+	background: lightblue;
+	border-radius: 30px;
+	height: 36rem;
+}
+
+#stair{
+	position: absolute;
+}
+
+#handrail{
+	position: absolute;
+	z-index: 10;
+}
+
+#baluster{
+	position: absolute;
+	z-index: 1;
+}
+
+
+input, label{
+	font-size: 25px;
+	text-transform: uppercase;
+}
