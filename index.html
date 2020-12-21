@@ -8,26 +8,44 @@
 </head>
 <body>
 	<div id="container">
+		<div id="title" style="text-align: center">
+			<h1>STAIRS DESIGNER</h1><br><br>
+		</div>
 		<div id="wrapper">
+			<div id="controls">
+				<h1>Controls</h1>
+			</div>
 			<div id="room">
 				<div id="stair"></div>
 				<div id="handrail"></div>
 				<div id="newel"></div>
 				<div id="baluster"></div>
 			</div>
-			<div id="controls">
-				<label for="steps">Steps: </label>
- 				<input type="range" id="steps" name="steps" min="2" max="8" value="5" onchange="stepsout.value=value"><br><br>
- 				<output id="stepsout">5</output>
- 				
- 				<h1>Baluster</h1>
- 				<div id="balusterRadios"></div>
+			<div id="products">
+				<h1>Products</h1>
 
-				<h1>Newel</h1>
- 				<input type="radio" id="n1" name="newel" value="B3940" checked>
-				&nbsp;<label for="n1">B3940</label><br>
-				<input type="radio" id="n2" name="newel" value="4091">
-				&nbsp;<label for="n2">4091</label><br>
+				<div id="actualProducts">
+					<div id="balusterProduct"></div>
+					<div id="newelProduct"></div>
+				</div>
+
+				<div id="buyButton">
+					<p>CHECKOUT</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="balusterGallery">
+			<div class="promoText">
+				<div class="promoTextLeft">
+					<p>Balusters</p>
+				</div>
+				<div class="promoTextRight">
+					<p>Click to select</p>
+				</div>
+			</div>
+			<div id="balusterGalleryItems">
+				
 			</div>
 		</div>
 	</div>

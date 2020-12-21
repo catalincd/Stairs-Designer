@@ -1,18 +1,38 @@
 var LEFT = 12.0;
 var TOP = 20.0;
-var NUM = 5;
+var NUM = 8;
 var BALUSTER = "B2915";
 var NEWEL = "B3940";
+var SELECTED_ID = 0;
+var SELECTED_ITEM;
 
 
 var balusters=["2011","2111","5004","5005","50058","5015","5035","5040","5060","5060V","5067","5070","5090","5141","5200","5300","53008","5360","5360V","5370","B2905","B2915","C5060","C5060V","C5360","F2005","F2015","F2105","F2115","F2905","F5060","F5060V","F5070","F5360","F5370","P2005","P20058","P2015","P20158","P2105","P2115","P2905","P2915","T2005","T2015"];
 
-console.log(balusters.length);
 for(var i=0;i<balusters.length;i++){
 	
-	$("#balusterRadios").append(`<input type="radio" id="b${i}" name="baluster" value="${balusters[i]}">
-								&nbsp;<label for="b${i}">${balusters[i]}</label><br>`);
+	$("#balusterGalleryItems").append(`<img data-id="${i}" class="balusterItem" src="res/balusters/${balusters[i]}.png">`);
 }
+
+
+$(".balusterItem").on("click", function(){
+
+	if(SELECTED_ITEM !== undefined)
+	{
+		SELECTED_ITEM.css("background", "transparent");
+		SELECTED_ITEM.css("border", "none");
+	}
+
+	SELECTED_ITEM = $(this);
+	SELECTED_ITEM.css("background", "#c2c5a9");
+	SELECTED_ITEM.css("border", "2px red solid");
+	SELECTED_ID = SELECTED_ITEM.data("id");
+	BALUSTER = balusters[SELECTED_ID];
+
+	$("#balusterProduct").empty();
+	$("#balusterProduct").append(`<div class="balusterProductItem"><img src="res/balusters/${balusters[SELECTED_ID]}.png"><p>${balusters[SELECTED_ID]}</p></div>`);
+	reset();
+});
 
 
 
@@ -116,7 +136,7 @@ function reset(){
 
 	var x = (NUM-1) * 2.82;
 	var y = (NUM-1) * 2.34;
-	LEFT = (48.0 - 12.5 - x) / 2.0;
+	LEFT = (36.0 - 12.5 - x) / 2.0;
 	TOP = (36.0 - 15 + y) / 2.0;
 
 	draw(NUM, BALUSTER, NEWEL);
