@@ -20,7 +20,7 @@ var balusters=["B2915","F2915","P2915","2111","P2115","T2015","F2015","P2015","5
 var MATERIAL = 0;
 var STATE = 0;
 
-var RES = "res";
+var RES = "https://raw.githubusercontent.com/Tokarev420/Stairs-Designer/main/res";
 
 function insertBalustersTopWood(){
 	$("#balusterGalleryItems").empty();
