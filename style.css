@@ -11,7 +11,7 @@ html{
 }
 
 body{
- 	background: #c2c5a9;
+ 	background: #bbb;
  	font-family:"aileron";
  }
 
@@ -30,7 +30,8 @@ body{
 }
 
 #room{
-	background: #c8d8f3;
+	border:4px solid black;
+	background: #E9EBEC;
 	border-radius: 0.5rem;
 	width: 36rem;
 	height: 36rem;
@@ -42,15 +43,17 @@ body{
 }
 
 #controls{
+	border:4px solid black;
 	max-width: 36rem;
 	border-radius: 0.5rem;
 	padding: 2rem;
 	flex-grow: 1;
-	background: #c8d8f3;
+	background: #E9EBEC;
 	margin-bottom: 2rem;
 }
 
 #products{
+	border:4px solid black;
 	position: relative;
 	display:grid;
 	grid-template-rows: auto 1fr auto;
@@ -59,7 +62,7 @@ body{
 	border-radius: 0.5rem;
 	padding: 2rem;
 	flex-grow: 1;
-	background: #c8d8f3;
+	background: #E9EBEC;
 	margin-bottom: 2rem;
 }
 
@@ -99,7 +102,7 @@ body{
 	margin-right: 4rem;
 	text-align: right;
 	font-size: 1.5em;
-	font-weight: 200;
+	font-weight: 300;
 	text-transform: uppercase;
 	transform: translateY(-50%);
 }
@@ -130,9 +133,10 @@ body{
 	width: 100%;
 	margin-right: 3rem;
 	border-radius: 0.5rem;
-	background: #c8d8f3;
+	background: #E9EBEC;
 	padding: 2em;
 	margin-top: 2em;
+	border:4px solid black;
 }
 
 #balusterGalleryItems{
@@ -152,7 +156,7 @@ body{
 
 .balusterItem{
 	width: : 2rem;
-	padding: 1em;
+	padding: 1rem;
 	display: inline-block;
 	border-radius: 0.2rem;
 	transition: all 0.3s ease;
@@ -165,7 +169,50 @@ body{
 }
 
 
-.balusterProductItem{
+.balusterProductItem, .newelProductItem{
+	margin-bottom: 2rem;
 	text-align: center;
-	width: 1.6rem;
+}
+
+.balusterProductItem img{
+	margin-top: 5rem;
+	height: 15rem;
+}
+
+.newelProductItem img{
+	height: 20rem;
+}
+
+.newelItem{
+	width: : 2rem;
+	padding: 0.5rem;
+	padding-bottom: 2.5rem;
+	padding-top: 0;
+	display: inline-block;
+	border-radius: 0.2rem;
+	transition: all 0.3s ease;
+	transform: scale(0.75);
+}
+
+.newelItem:hover{
+	cursor: pointer;
+	transform: scale(1);
+}
+
+#newelGallery{
+	/*max-width: 90rem;*/
+	width: 100%;
+	margin-right: 3rem;
+	border-radius: 0.5rem;
+	background: #E9EBEC;
+	padding: 2em;
+	margin-top: 2em;
+	border:4px solid black;
+}
+
+#newelGalleryItems{
+	
+	display: grid;
+	grid-gap: 0.5rem;
+	grid-template-columns: repeat(auto-fit, 2.4rem);
 }

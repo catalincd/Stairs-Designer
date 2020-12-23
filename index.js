@@ -1,38 +1,80 @@
+var SELECTOR_BACKGROUND = "#7F7F7F";
+var SELECTOR_STROKE = "2px solid red";
+
+
 var LEFT = 12.0;
 var TOP = 20.0;
 var NUM = 8;
 var BALUSTER = "B2915";
-var NEWEL = "B3940";
-var SELECTED_ID = 0;
-var SELECTED_ITEM;
+var NEWEL = "2011";
 
+var SELECTED_BALUSTER_ID = 0;
+var SELECTED_BALUSTER_ITEM;
 
+var SELECTED_NEWEL_ID = 0;
+var SELECTED_NEWEL_ITEM;
+
+var newels=["4075_50","4091","4092","4093","4094","4095","4096","4097","4175_50","4391","4392","4393","4394","4395","4396","4397","F3040","F4091","P3040","P30408","RA4091","RC4091","T3040"];
 var balusters=["2011","2111","5004","5005","50058","5015","5035","5040","5060","5060V","5067","5070","5090","5141","5200","5300","53008","5360","5360V","5370","B2905","B2915","C5060","C5060V","C5360","F2005","F2015","F2105","F2115","F2905","F5060","F5060V","F5070","F5360","F5370","P2005","P20058","P2015","P20158","P2105","P2115","P2905","P2915","T2005","T2015"];
+
+
 
 for(var i=0;i<balusters.length;i++){
 	
 	$("#balusterGalleryItems").append(`<img data-id="${i}" class="balusterItem" src="res/balusters/${balusters[i]}.png">`);
 }
 
+for(var i=0;i<newels.length;i++){
+	
+	$("#newelGalleryItems").append(`<img data-id="${i}" class="newelItem" src="res/newels/${newels[i]}.png">`);
+}
+
 
 $(".balusterItem").on("click", function(){
 
-	if(SELECTED_ITEM !== undefined)
-	{
-		SELECTED_ITEM.css("background", "transparent");
-		SELECTED_ITEM.css("border", "none");
-	}
-
-	SELECTED_ITEM = $(this);
-	SELECTED_ITEM.css("background", "#c2c5a9");
-	SELECTED_ITEM.css("border", "2px red solid");
-	SELECTED_ID = SELECTED_ITEM.data("id");
-	BALUSTER = balusters[SELECTED_ID];
-
-	$("#balusterProduct").empty();
-	$("#balusterProduct").append(`<div class="balusterProductItem"><img src="res/balusters/${balusters[SELECTED_ID]}.png"><p>${balusters[SELECTED_ID]}</p></div>`);
+	selectBaluster($(this));
 	reset();
 });
+
+$(".newelItem").on("click", function(){
+
+	selectNewel($(this));
+	reset();
+});
+
+function selectBaluster(e){
+	if(SELECTED_BALUSTER_ITEM !== undefined)
+	{
+		SELECTED_BALUSTER_ITEM.css("background", "transparent");
+		SELECTED_BALUSTER_ITEM.css("border", "none");
+	}
+
+	SELECTED_BALUSTER_ITEM = e;
+	SELECTED_BALUSTER_ITEM.css("background", SELECTOR_BACKGROUND);
+	SELECTED_BALUSTER_ITEM.css("border", SELECTOR_STROKE);
+	SELECTED_BALUSTER_ID = SELECTED_BALUSTER_ITEM.data("id");
+	BALUSTER = balusters[SELECTED_BALUSTER_ID];
+
+	$("#balusterProduct").empty();
+	$("#balusterProduct").append(`<div class="balusterProductItem"><img src="res/balusters/${balusters[SELECTED_BALUSTER_ID]}.png"><p>${balusters[SELECTED_BALUSTER_ID]}</p></div>`);
+}
+
+function selectNewel(e){
+	if(SELECTED_NEWEL_ITEM !== undefined)
+	{
+		SELECTED_NEWEL_ITEM.css("background", "transparent");
+		SELECTED_NEWEL_ITEM.css("border", "none");
+	}
+
+	SELECTED_NEWEL_ITEM = e;
+	SELECTED_NEWEL_ITEM.css("background", SELECTOR_BACKGROUND);
+	SELECTED_NEWEL_ITEM.css("border", SELECTOR_STROKE);
+	SELECTED_NEWEL_ID = SELECTED_NEWEL_ITEM.data("id");
+	NEWEL = newels[SELECTED_NEWEL_ID];
+
+	$("#newelProduct").empty();
+	$("#newelProduct").append(`<div class="newelProductItem"><img src="res/newels/${newels[SELECTED_NEWEL_ID]}.png"><p>${newels[SELECTED_NEWEL_ID]}</p></div>`);
+}
 
 
 
@@ -99,8 +141,8 @@ function drawBalusters(number, baluster, newel){
 	var initLeft = 2 + LEFT;
 	var newelLeftOffset = 2.2;
 
-	$( "#newel" ).append(`<img src="res/${newel}.png" class="newel" style="top:${initTop}rem;left:${initLeft - newelLeftOffset}rem;z-index:15">`);	
-	$( "#newel" ).append(`<img src="res/${newel}.png" class="newel" style="top:${initTop - number * 2.34}rem;left:${initLeft - newelLeftOffset + number * 2.82}rem;z-index:15">`);	
+	$( "#newel" ).append(`<img src="res/newels/${newel}.png" class="newel" style="top:${initTop}rem;left:${initLeft - newelLeftOffset}rem;z-index:15">`);	
+	$( "#newel" ).append(`<img src="res/newels/${newel}.png" class="newel" style="top:${initTop - number * 2.34}rem;left:${initLeft - newelLeftOffset + number * 2.82}rem;z-index:15">`);	
 	
 	for(var i=0;i<NUM;i++)
 	{
@@ -142,4 +184,31 @@ function reset(){
 	draw(NUM, BALUSTER, NEWEL);
 }
 
+
+
+selectBaluster($(".balusterItem").first());
+selectNewel($(".newelItem").first());
 reset();
+
+
+//$("#balusterProduct").empty();
+//$("#newelProduct").empty();
+
+
+
+$("#buyButton").on("click", function(){
+	var doc = new jsPDF();
+	var elementHTML = $('#room').html();
+	var specialElementHandlers = {
+	    '#elementH': function (element, renderer) {
+	        return true;
+	    }
+	};
+	doc.fromHTML(elementHTML, 15, 15, {
+	    'width': 360,
+	    'elementHandlers': specialElementHandlers
+	});
+
+	// Save the PDF
+	doc.save('sample-document.pdf');
+});
