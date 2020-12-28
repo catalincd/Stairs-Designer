@@ -47,7 +47,11 @@ function generateBalusters(img, pdf){
 		pdf.addImage(img, 'png', left, topBaluster, balusterSizeX, balusterSizeY);
 	}
 
-	loadHandrails(pdf);	
+	if(STATE == 0)
+		loadHandrails(pdf);	
+	else
+		loadSteps(pdf);
+
 }
 
 function loadSteps(pdf){
@@ -110,7 +114,11 @@ function generateSteps(pdf, bottom, mid, top){
 		var left = initLeft + i * stepOffsetX;
 		pdf.addImage(mid, 'png', left, top, stepSizeX, stepSizeY);	
 	}
-	pdf.save(DOC_NAME);
+	if(STATE == 0)
+		pdf.save(DOC_NAME);
+	else
+		loadHandrails(pdf);
+
 }
 
 function loadHandrails(pdf){
@@ -196,5 +204,8 @@ function generateHandrails(pdf, bottom, mid, top, newel){
 	pdf.addImage(newel, 'png', initBalusterLeft, initBalusterTop, newelSizeX, newelSizeY);
 	pdf.addImage(newel, 'png', initBalusterLeft + (xNUM * balusterOffsetX) + newelOffsetX, initBalusterTop + newelOffsetY - (xNUM * balusterOffsetY), newelSizeX, newelSizeY);
 
-	loadSteps(pdf);	
+	if(STATE == 0)
+		loadSteps(pdf);	
+	else
+		pdf.save(DOC_NAME);
 }
