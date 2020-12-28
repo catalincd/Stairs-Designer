@@ -19,8 +19,12 @@ var balusters = [];
 var MATERIAL = 0;
 var STATE = 0;
 
+<<<<<<< HEAD
 //var RES = "https://raw.githubusercontent.com/Tokarev420/Stairs-Designer/main/res";
 var RES = "res";
+=======
+var RES = "https://raw.githubusercontent.com/Tokarev420/Stairs-Designer/main/res";
+>>>>>>> ec29291463e99e1a5a308c8f6be6cfc2e45d5d1a
 
 
 resetAssets();
