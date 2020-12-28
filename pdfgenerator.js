@@ -38,7 +38,7 @@ function generateBalusters(img, pdf){
 		pdf.addImage(img, 'png', left, top, balusterSizeX, balusterSizeY);///Crop at i%3==1
 	}	
 
-	var topBaluster = GENERATE_TOP;
+	var topBaluster = GENERATE_TOP - ((STATE == 0)? 0 : (1.5 * balusterOffsetY));
 	var leftBaluster = initLeft + (xNUM+2) * balusterOffsetX;
 
 	for(var i=0;i<8;i++)
@@ -47,11 +47,7 @@ function generateBalusters(img, pdf){
 		pdf.addImage(img, 'png', left, topBaluster, balusterSizeX, balusterSizeY);
 	}
 
-	if(STATE == 0)
-		loadHandrails(pdf);	
-	else
-		loadSteps(pdf);
-
+	loadHandrails(pdf);	
 }
 
 function loadSteps(pdf){
@@ -114,11 +110,8 @@ function generateSteps(pdf, bottom, mid, top){
 		var left = initLeft + i * stepOffsetX;
 		pdf.addImage(mid, 'png', left, top, stepSizeX, stepSizeY);	
 	}
-	if(STATE == 0)
-		pdf.save(DOC_NAME);
-	else
-		loadHandrails(pdf);
 
+	pdf.save(DOC_NAME);
 }
 
 function loadHandrails(pdf){
@@ -148,9 +141,11 @@ function loadHandrails(pdf){
 		}
 	};
 
-	
+		
+	var stateClass = (STATE == 0)? "" : "Over";
+
 	stepBottom.crossOrigin="anonymous";
-	stepBottom.src = RES + `/handBottom.png`;
+	stepBottom.src = RES + `/handBottom${stateClass}.png`;
 	stepBottom.onload = function(){
 		loaded++;
 		if(loaded == 4){
@@ -160,7 +155,7 @@ function loadHandrails(pdf){
 
 	
 	stepTop.crossOrigin="anonymous";
-	stepTop.src = RES + `/handTop.png`;
+	stepTop.src = RES + `/handTop${stateClass}.png`;
 	stepTop.onload = function(){
 		loaded++;
 		if(loaded == 4){
@@ -190,6 +185,11 @@ function generateHandrails(pdf, bottom, mid, top, newel){
 	var initLeft = GENERATE_LEFT;
 
 	
+	if(STATE == 1)
+	{
+		pdf.addImage(newel, 'png', initBalusterLeft, initBalusterTop + balusterOffsetY, newelSizeX, newelSizeY);
+		pdf.addImage(newel, 'png', initBalusterLeft + ((xNUM + 0.35) * balusterOffsetX) + newelOffsetX, initBalusterTop + newelOffsetY - ((xNUM) * balusterOffsetY), newelSizeX, newelSizeY);
+	}
 
 	pdf.addImage(bottom, 'png', initLeft, initTop, stepSizeX, stepSizeY);	
 	pdf.addImage(top, 'png', initLeft + NUM * stepOffsetX, initTop - NUM * stepOffsetY, 245 * GENERATE_SCALE_FACTOR * 0.75, stepSizeY);	
@@ -201,11 +201,11 @@ function generateHandrails(pdf, bottom, mid, top, newel){
 		pdf.addImage(mid, 'png', left, top, stepSizeX, stepSizeY);	
 	}
 
-	pdf.addImage(newel, 'png', initBalusterLeft, initBalusterTop, newelSizeX, newelSizeY);
-	pdf.addImage(newel, 'png', initBalusterLeft + (xNUM * balusterOffsetX) + newelOffsetX, initBalusterTop + newelOffsetY - (xNUM * balusterOffsetY), newelSizeX, newelSizeY);
-
 	if(STATE == 0)
-		loadSteps(pdf);	
-	else
-		pdf.save(DOC_NAME);
+	{
+		pdf.addImage(newel, 'png', initBalusterLeft, initBalusterTop, newelSizeX, newelSizeY);
+		pdf.addImage(newel, 'png', initBalusterLeft + (xNUM * balusterOffsetX) + newelOffsetX, initBalusterTop + newelOffsetY - (xNUM * balusterOffsetY), newelSizeX, newelSizeY);
+	}
+
+	loadSteps(pdf);	
 }
