@@ -1,3 +1,25 @@
+////STATE / RUNTIME VARS
+var BALUSTER = "B2915";
+var NEWEL = "2011";
+var HANDRAIL = "";
+
+var SELECTED_BALUSTER_ID = 0;
+var SELECTED_BALUSTER_ITEM;
+
+var SELECTED_NEWEL_ID = 0;
+var SELECTED_NEWEL_ITEM;
+
+var SELECTED_HANDRAIL_ID = 0;
+var SELECTED_HANDRAIL_ITEM;
+
+var newels = [];
+var balusters = [];
+var handrails = [];
+var MATERIAL = 0;
+var STATE = 0;
+
+////ASSETS VARS
+
 var balustersTopWood = [
   'B2915',  'F2915',  'P2915', '2111',  'P2115',
   'T2015',  'F2015',  'P2015', '53008', '5300',
@@ -124,3 +146,34 @@ var newelsOverIron = [
   'NWLRIB48sb'
 ];
 
+
+var handrailsTopWood = [
+  '6109', '6210',
+  '6400', '6519',
+  '6701', '6900',
+  '6A10', '6B10',
+];
+
+
+var handrailsTopIron = [
+  '6701', '6900', '6A10',
+  '6B10', '6010', '6601',
+  '6002', '6003', '6109',
+  '6203', '6210', '6519',
+  '6400'
+];
+
+
+var handrailsOverWood = [ 
+  '6109P1', '6210P', '6400P',
+  '6900P', '6A10P1', '6B10P1'
+];
+
+
+var handrailsOverIron = [
+  '6701', '6900',
+  '6A10', '6B10',
+  '6010', '6601',
+  '6109', '6210',
+  '6519', '6400'
+];

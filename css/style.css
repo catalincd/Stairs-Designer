@@ -33,6 +33,7 @@ body{
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+	/*TO DO: Pancakes*/
 }
 
 #room{
@@ -58,6 +59,10 @@ body{
 }
 #controls h1{
 	margin: 2rem;
+}
+
+#stepsSlider{
+	grid-column: 2 / 4;
 }
 
 #products{
@@ -156,42 +161,56 @@ body{
 }
 
 
+#handrailGallery{
+	/*max-width: 90rem;*/
+	width: 100%;
+	margin-right: 3rem;
+	border-radius: 0.5rem;
+	background: #E9EBEC;
+	padding: 2em;
+	margin-top: 2em;
+	border:4px solid black;
+}
+
+#handrailGalleryItems{
+	width: 100%;
+	display: grid;
+	grid-gap: 4em;
+	grid-template-columns: repeat(auto-fit, 3rem);
+}
+
+.handrailItem{
+	padding: 1rem;
+	width: 6rem;
+	display: inline-block;
+	border-radius: 0.2rem;
+	transition: all 0.3s ease;
+	transform: scale(0.75);
+}
+
+.handrailItem:hover{
+	cursor: pointer;
+	transform: scale(1);
+}
+
+
 #actualProducts{
 	display:grid;
+	justify-content: bottom;
 	grid-template-columns: repeat(3, 1fr);
 }
 
 #actualControls{
 	display:grid;
+	grid-gap: 1.5rem;
 	justify-content: center;
 	align-content: center;
-	grid-template-rows: repeat(3, 1fr);
-}
-
-.switchControl{
-	display:grid;
-	justify-content: space-around;
-	align-content: center;
-	grid-template-columns: repeat(3, 1fr);
-}
-
-.switchControl div{
+	grid-template-columns: repeat(3, auto);
 	text-align: center;
-	display: flex;
-	justify-content: space-around;
-	height: 34px;
-	font-size: 1.25rem;
-	margin: 5px 5px;
 }
 
-
-.switchControl label{
-	text-align: center;
-	display: flex;
-	justify-content: space-around;
-	height: 34px;
-	font-size: 1.25rem;
-	margin-left: 10px;
+.switchText{
+	margin-top: .5em;
 }
 
 
@@ -210,7 +229,10 @@ body{
 }
 
 
-.balusterProductItem, .newelProductItem{
+
+
+
+.balusterProductItem, .newelProductItem, .handrailProductItem{
 	margin-bottom: 2rem;
 	text-align: center;
 }
@@ -224,8 +246,12 @@ body{
 	height: 20rem;
 }
 
+.handrailProductItem img{
+	margin-top: 16rem;
+	height: 4rem;
+}
+
 .newelItem{
-	width: : 2rem;
 	padding: 0.5rem;
 	padding-bottom: 2.5rem;
 	padding-top: 0;

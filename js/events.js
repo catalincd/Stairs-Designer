@@ -8,6 +8,10 @@ $(document).on("click", ".newelItem", function(){
 	reset();
 });
 
+$(document).on("click", ".handrailItem", function(){
+	selectHandrail($(this));
+});
+
 function selectBaluster(e){
 	if(SELECTED_BALUSTER_ITEM !== undefined)
 	{
@@ -42,6 +46,22 @@ function selectNewel(e){
 	$("#newelProduct").append(`<div class="newelProductItem"><img src="${RES}/newels/${newels[SELECTED_NEWEL_ID]}.png"><p>${newels[SELECTED_NEWEL_ID]}</p></div>`);
 }
 
+function selectHandrail(e){
+	if(SELECTED_HANDRAIL_ITEM !== undefined)
+	{
+		SELECTED_HANDRAIL_ITEM.css("background", "transparent");
+		SELECTED_HANDRAIL_ITEM.css("border", "none");
+	}
+
+	SELECTED_HANDRAIL_ITEM = e;
+	SELECTED_HANDRAIL_ITEM.css("background", SELECTOR_BACKGROUND);
+	SELECTED_HANDRAIL_ITEM.css("border", SELECTOR_STROKE);
+	SELECTED_HANDRAIL_ID = SELECTED_HANDRAIL_ITEM.data("id");
+	HANDRAIL = handrails[SELECTED_HANDRAIL_ID];
+
+	$("#handrailProduct").empty();
+	$("#handrailProduct").append(`<div class="handrailProductItem"><img src="${RES}/handrails/${handrails[SELECTED_HANDRAIL_ID]}.png"><p>${handrails[SELECTED_HANDRAIL_ID]}</p></div>`);
+}
 
 
 $('input[name="steps"]').change(
@@ -89,25 +109,30 @@ function resetAssets(){
 		if(MATERIAL == 0){
 			insertBalustersTopWood();
 			insertNewelsTopWood();
+			insertHandrailsTopWood();
 		}
 		else{
 			insertBalustersTopIron();
 			insertNewelsTopIron();
+			insertHandrailsTopIron();
 		}
 	}
 	else{
 		if(MATERIAL == 0){
 			insertBalustersOverWood();
 			insertNewelsOverWood();
+			insertHandrailsOverWood();
 		}
 		else{
 			insertBalustersOverIron();
 			insertNewelsOverIron();
+			insertHandrailsOverIron();
 		}
 
 	}
 	selectBaluster($(".balusterItem").first());
 	selectNewel($(".newelItem").first());
+	selectHandrail($(".handrailItem").first());
 }
 
 

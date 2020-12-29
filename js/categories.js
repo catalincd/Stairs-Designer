@@ -66,3 +66,39 @@ function insertNewelsOverIron(){
 		$("#newelGalleryItems").append(`<img data-id="${i}" class="newelItem" src="${RES}/newels/${newels[i]}.png">`);
 	}
 }
+
+
+
+///////////////////// HANDRAILS
+
+function insertHandrailsTopWood(){
+	$("#handrailGalleryItems").empty();
+	handrails = handrailsTopWood;
+	for(var i=0;i<handrails.length;i++){
+		$("#handrailGalleryItems").append(`<img data-id="${i}" class="handrailItem" src="${RES}/handrails/${handrails[i]}.png">`);
+	}
+}
+
+function insertHandrailsOverWood(){
+	$("#handrailGalleryItems").empty();
+	handrails = handrailsOverWood;
+	for(var i=0;i<handrails.length;i++){
+		$("#handrailGalleryItems").append(`<img data-id="${i}" class="handrailItem" src="${RES}/handrails/${handrails[i]}.png">`);
+	}
+}
+
+function insertHandrailsTopIron(){
+	$("#handrailGalleryItems").empty();
+	handrails = handrailsTopIron;
+	for(var i=0;i<handrails.length;i++){
+		$("#handrailGalleryItems").append(`<img data-id="${i}" class="handrailItem" src="${RES}/handrails/${handrails[i]}.png">`);
+	}
+}
+
+function insertHandrailsOverIron(){
+	$("#handrailGalleryItems").empty();
+	handrails = handrailsOverIron;
+	for(var i=0;i<handrails.length;i++){
+		$("#handrailGalleryItems").append(`<img data-id="${i}" class="handrailItem" src="${RES}/handrails/${handrails[i]}.png">`);
+	}
+}
