@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Stairs Designer</title>
+	<meta name="description" content="Stair Service Online Designer Tool with multiple design options. Choose your newels, balusters and handrails.">
+	<title>Stairs Designer Tool</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/elements.css">
 	<link rel="stylesheet" href="css/controls.css">
@@ -11,10 +12,11 @@
 <body>
 	<div id="container">
 		<div id="title" style="text-align: center">
-			<h1>STAIRS DESIGNER</h1><br><br>
+			<img class="logo" src="res/logo.png">
+			<h1>Stair Service Online Designer Tool</h1><br><br>
 		</div>
 		<div id="wrapper">
-			<div id="controls">
+			<div id="controls" class="wrapped">
 				<h1>Controls</h1>
 				<div id="actualControls">
 						<div class="switchText">WOOD</div>
@@ -38,13 +40,13 @@
 						</div>
 				</div>
 			</div>
-			<div id="room">
+			<div id="room" class="wrapped">
 				<div id="stair"></div>
 				<div id="handrail"></div>
 				<div id="newel"></div>
 				<div id="baluster"></div>
 			</div>
-			<div id="products">
+			<div id="products" class="wrapped">
 				<h1>Products</h1>
 
 				<div id="actualProducts">
@@ -102,6 +104,7 @@
 		</div>
 	</div>
 	<script src="js/vars.js"></script>
+	<script src="js/dictionary.js"></script>
 	<script src="js/draw.js"></script>
 	<script src="js/events.js"></script>
 	<script src="js/categories.js"></script>
