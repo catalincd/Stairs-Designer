@@ -50,6 +50,9 @@ function drawKneewall(number){
 	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${fill2Width}rem;height:${fill2Height}rem;top:${fill2Offset}rem;left:${fill2LeftOffset}rem;">`);	
 
 
+
+
+
 	$( "#kneewall" ).append(`<img src="${RES}/kneeBottom.png" class="knee bottom" style="top:${initTop}rem;left:${initLeft}rem;">`);	
 	$( "#kneewall" ).append(`<img src="${RES}/kneeTop.png" class="knee top" style="top:${initTop + topOffset - number * 2.34}rem;left:${initLeft + topLeftOffset + number * 2.82}rem;">`);	
 

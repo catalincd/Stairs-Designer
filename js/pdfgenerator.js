@@ -10,6 +10,24 @@ function generatePdf(){
 
 	var pdf = new jsPDF('p', 'mm', [297, 210]);
 
+	addLogo(pdf);
+}
+
+function addLogo(pdf){
+
+	var logo = new Image();
+	logo.crossOrigin="anonymous";
+	logo.src = RES + `/logoBlack.png`;
+	logo.onload = function(){
+		pdf.addImage(logo, 'png', 200, 200, 100, 455.73);
+		loadBalusters(pdf);
+	};
+
+
+	
+}
+
+function loadBalusters(pdf){
 	var balusterImg = new Image();
 	balusterImg.crossOrigin="anonymous";
 	balusterImg.src = RES + `/balusters/${balusters[SELECTED_BALUSTER_ID]}.png`;
@@ -110,6 +128,102 @@ function generateSteps(pdf, bottom, mid, top){
 		var left = initLeft + i * stepOffsetX;
 		pdf.addImage(mid, 'png', left, top, stepSizeX, stepSizeY);	
 	}
+
+	if(KNEEWALL == 1){
+		loadKneewall(pdf);
+	}
+	else pdf.save(DOC_NAME);
+}
+
+function loadKneewall(pdf){
+	var loaded = 0;
+
+	var top = new Image();
+	top.crossOrigin="anonymous";
+	top.src = RES + `/kneeTop.png`;
+	top.onload = function(){
+		loaded++;
+		if(loaded == 5){
+			generateKneewall(pdf, top, mid, bottom, fillTop, fill);
+		}
+	};
+
+	var mid = new Image();
+	mid.crossOrigin="anonymous";
+	mid.src = RES + `/kneeMid.png`;
+	mid.onload = function(){
+		loaded++;
+		if(loaded == 5){
+			generateKneewall(pdf, top, mid, bottom, fillTop, fill);
+		}
+	};
+
+	var bottom = new Image();
+	bottom.crossOrigin="anonymous";
+	bottom.src = RES + `/kneeBottom.png`;
+	bottom.onload = function(){
+		loaded++;
+		if(loaded == 5){
+			generateKneewall(pdf, top, mid, bottom, fillTop, fill);
+		}
+	};
+
+	var fillTop = new Image();
+	fillTop.crossOrigin="anonymous";
+	fillTop.src = RES + `/kneeFillTop.png`;
+	fillTop.onload = function(){
+		loaded++;
+		if(loaded == 5){
+			generateKneewall(pdf, top, mid, bottom, fillTop, fill);
+		}
+	};
+
+	var fill = new Image();
+	fill.crossOrigin="anonymous";
+	fill.src = RES + `/kneeFill.png`;
+	fill.onload = function(){
+		loaded++;
+		if(loaded == 5){
+			generateKneewall(pdf, top, mid, bottom, fillTop, fill);
+		}
+	};
+}
+
+function generateKneewall(pdf, top, mid, bottom, fillTop, fill){
+
+	var stepSizeX = 95 * GENERATE_SCALE_FACTOR * 0.75;
+	var stepSizeY = 124 * GENERATE_SCALE_FACTOR * 0.75;
+
+	var stepOffsetX = 53.5 * GENERATE_SCALE_FACTOR;
+	var stepOffsetY = 45 * GENERATE_SCALE_FACTOR;
+
+	var initTop = GENERATE_TOP + (117 * GENERATE_SCALE_FACTOR) + (NUM * stepOffsetY);
+	var initLeft = GENERATE_LEFT;
+
+	pdf.addImage(bottom, 'png', initLeft, initTop, stepSizeX, stepSizeY * 1.07);	
+	pdf.addImage(top, 'png', initLeft + NUM * stepOffsetX + (10 * GENERATE_SCALE_FACTOR), initTop - NUM * stepOffsetY + (32 * GENERATE_SCALE_FACTOR), 245 * GENERATE_SCALE_FACTOR * 0.75, stepSizeY);	
+	
+	for(var i=1;i<NUM;i++)
+	{
+		var top = initTop - i * stepOffsetY;
+		var left = initLeft + i * stepOffsetX;
+		pdf.addImage(mid, 'png', left, top, stepSizeX, stepSizeY);	
+	}
+
+	var fillSizeX = (NUM-0.5) * stepOffsetX;
+	var fillSizeY = fillSizeX / 1.17;
+
+	var topOffset = 70 * GENERATE_SCALE_FACTOR;
+	var topSizeY = stepOffsetY * (NUM) + stepOffsetY;
+
+	var fill2SizeY = stepSizeY * 0.58;
+	var fill2SizeX = (NUM-0.5) * (stepOffsetX + 0.02) + (255 * GENERATE_SCALE_FACTOR * 0.75);
+
+
+	pdf.addImage(fill, 'png', initLeft + (stepSizeX * 0.5), initTop - fillSizeY + (stepOffsetY * 1), fillSizeX, fillSizeY);
+	pdf.addImage(fillTop, 'png', initLeft + (10 * GENERATE_SCALE_FACTOR) + NUM * stepOffsetX, initTop - NUM * stepOffsetY + topOffset, 245 * GENERATE_SCALE_FACTOR * 0.75, topSizeY - topOffset);
+	pdf.addImage(fillTop, 'png', initLeft + (stepSizeX * 0.5), initTop + (stepSizeY * 0.48), fill2SizeX, fill2SizeY);
+
 
 	pdf.save(DOC_NAME);
 }

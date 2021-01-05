@@ -8,7 +8,9 @@ var TOP = 20.0;
 var NUM = 5;
 
 //var RES = "https://raw.githubusercontent.com/Tokarev420/Stairs-Designer/main/res";
-var RES = "./res";
+//var RES = "./res";
+var RES = "https://raw.githubusercontent.com/Tokarev420/Stairs-Designer/new/res";
+
 
 resetAssets();
 reset();

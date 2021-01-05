@@ -111,8 +111,6 @@ $('input:checkbox[name="state"]').change(
 $('input:checkbox[name="kneewallInput"]').change(
 	function(){
 	    KNEEWALL = $(this).is(':checked')? 0:1;
-	    console.log(KNEEWALL);
-		resetAssets();
 		reset();
 });
 
@@ -203,6 +201,8 @@ var marginOffset = 0;
 var floatEnabled = false;
 
 $(document).ready(function(){
+	marginOffset = (rem() * 1.5);
+	roomTop = $('#room').position().top;
 	checkPosition();
 });
 
@@ -220,9 +220,6 @@ $(document).load($(window).bind("resize", checkPosition));
 
 function checkPosition()
 {
-	marginOffset = (rem() * 1.5);
-	roomTop = $('#room').position().top;
-	
 	if (window.matchMedia('(max-width: 1100px)').matches) {
         floatEnabled = false;
 
