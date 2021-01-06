@@ -1,16 +1,24 @@
-var x = [];
+var x = [[ '6109P1', '6210P', '6400P', '6900P', '6A10P1', '6B10P1' ],[
+  '6701', '6900',
+  '6A10', '6B10',
+  '6109', '6210',
+  '6519', '6400'
+]
 
-for(var i=0;i<48;i++)
-{
-	x[i] = 5;
 
-	if(i<44)x[i] = 5;
-	if(i<42)x[i] = 5;
-	if(i<33)x[i] = 4;
-	if(i<19)x[i] = 3;
-	if(i<16)x[i] = 2;
-	if(i<12)x[i] = 1;
-	if(i<10)x[i] = 0;
+  
+
+
+];
+
+
+var names = [];
+
+for(var q = 0;q<x.length;q++){
+  for(var i=0;i<x[q].length;i++){
+    if(!names.includes(x[q][i]))
+     names.push(x[q][i]);
+  }
 }
 
-console.log(x);
+console.log(names);

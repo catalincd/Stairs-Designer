@@ -48,6 +48,33 @@
 	overflow: hidden;
 }
 
+.balusterBorder{
+	width: 0.82rem;
+	border: 1px rgba(100, 100, 100, 1) solid;
+	animation: flicker 0.5s linear 0.5s 2;
+	transition: all 0.2s linear;
+}
+
+@keyframes flicker {
+  0%   {border-color:rgba(100, 100, 100, 1);}
+  50%   {border-color:rgba(100, 100, 100, 0);}
+  100%   {border-color:rgba(100, 100, 100, 1);}
+}
+
+.sizeFlick{
+	animation: sizeFlicker 0.5s linear 0.1s;
+}
+
+@keyframes sizeFlicker {
+  0%   {opacity: 1;}
+  50%   {opacity: 0;}
+  100%   {opacity: 1;}
+}
+
+.balusterHoverBorder{
+	border: 3px blue solid;
+}
+
 .baluster img{
 	height: 10.23rem;
 }

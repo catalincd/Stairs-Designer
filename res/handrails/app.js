@@ -25,4 +25,6 @@ async function download(name) {
     console.log('downloaded ' + name));
 }
 
+
+
 console.log(names);

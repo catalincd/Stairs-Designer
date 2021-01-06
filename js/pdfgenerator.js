@@ -1,7 +1,7 @@
 
 var GENERATE_SCALE_FACTOR = 0.25;
 var STEPS_SCALE_FACTOR = 0.8; /// DO NOT TOUCH
-var GENERATE_TOP = 30;
+var GENERATE_TOP = 40;
 var GENERATE_LEFT = 70;
 var DOC_NAME = "Stairs Document.pdf";
 
@@ -9,6 +9,12 @@ function generatePdf(){
 	GENERATE_LEFT = 70 - (40 * (NUM-2) / 6.0);
 
 	var pdf = new jsPDF('p', 'mm', [297, 210]);
+	pdf.setProperties({
+		title: 'Stair Service Design',
+		subject: 'Stair Service Design',		
+		author: 'Stair Service',
+		keywords: 'generated, javascript, web 2.0, ajax, Stair Service,',
+	});
 
 	addLogo(pdf);
 }
@@ -19,22 +25,71 @@ function addLogo(pdf){
 	logo.crossOrigin="anonymous";
 	logo.src = RES + `/logoBlack.png`;
 	logo.onload = function(){
-		pdf.addImage(logo, 'png', 200, 200, 100, 455.73);
-		loadBalusters(pdf);
+		pdf.addImage(logo, 'png', 12, 12, 68.59, 15);
+		loadProducts(pdf);
 	};
-
-
-	
 }
 
-function loadBalusters(pdf){
+
+function loadProducts(pdf){
+	var loaded = 0;
+
 	var balusterImg = new Image();
 	balusterImg.crossOrigin="anonymous";
 	balusterImg.src = RES + `/balusters/${balusters[SELECTED_BALUSTER_ID]}.png`;
 	balusterImg.onload = function(){
-		generateBalusters(balusterImg, pdf);
+		loaded++;
+		if(loaded == 3){
+			generateProducts(pdf, balusterImg, newelImg, handrailImg);
+		}
+	};
+
+	var newelImg = new Image();
+	newelImg.crossOrigin="anonymous";
+	newelImg.src = RES + `/newels/${newels[SELECTED_NEWEL_ID]}.png`;
+	newelImg.onload = function(){
+		loaded++;
+		if(loaded == 3){
+			generateProducts(pdf, balusterImg, newelImg, handrailImg);
+		}
+	};
+
+	var handrailImg = new Image();
+	handrailImg.crossOrigin="anonymous";
+	handrailImg.src = RES + `/handrails/${handrails[SELECTED_HANDRAIL_ID]}.png`;
+	handrailImg.onload = function(){
+		loaded++;
+		if(loaded == 3){
+			generateProducts(pdf, balusterImg, newelImg, handrailImg);
+		}
 	};
 }
+
+
+function generateProducts(pdf, balusterImg, newelImg, handrailImg){
+
+	var TEXT_TOP = 280;
+	var IMG_BOTTOM = 270;
+	var IMG_FACTOR = 0.3;
+
+	var balusterSizeX = 16 * IMG_FACTOR;
+	var balusterSizeY = 200 * IMG_FACTOR;
+	pdf.addImage(balusterImg, 'png', 50 - (balusterSizeX / 2), IMG_BOTTOM - balusterSizeY, balusterSizeX, balusterSizeY);
+	pdf.text(40, TEXT_TOP, getName(balusters[SELECTED_BALUSTER_ID]));
+
+	var newelSizeX = 45 * IMG_FACTOR;
+	var newelSizeY = 250 * IMG_FACTOR;
+	pdf.addImage(newelImg, 'png', 100 - (newelSizeX / 2), IMG_BOTTOM - newelSizeY, newelSizeX, newelSizeY);
+	pdf.text(90, TEXT_TOP, getName(newels[SELECTED_NEWEL_ID]));
+
+	var handrailSizeX = 170 * IMG_FACTOR * 0.5;
+	var handrailSizeY = 130 * IMG_FACTOR * 0.5;
+	pdf.addImage(handrailImg, 'png', 150 - (handrailSizeX / 2), IMG_BOTTOM - handrailSizeY, handrailSizeX, handrailSizeY);
+	pdf.text(140, TEXT_TOP, getName(handrails[SELECTED_HANDRAIL_ID]));
+
+	generateBalusters(balusterImg, pdf);
+}
+
 
 function generateBalusters(img, pdf){
 

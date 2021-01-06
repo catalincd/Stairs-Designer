@@ -122,6 +122,41 @@ function drawBalusters(number, baluster){
 	}
 }
 
+function drawBalusterPlaceholders(number){
+
+	if(baluster == "")return;
+
+
+	var NUM = (number-1) * 3 + 1;
+	var initTop = TOP + 12;
+	var initLeft = 2 + LEFT;
+	var newelLeftOffset = 2.2;
+	var topLeftOffset = (STATE == 0)? 0.1 : 0.5;
+
+
+	for(var i=0;i<NUM;i++)
+	{
+		var top = initTop - i * 0.78;
+		var left = initLeft + i * 0.94;
+		var style = `top:${top}rem;left:${left}rem;z-index:1`;
+		//$( "#baluster" ).append(`<img src="${RES}/balusters/${baluster}.png" class="baluster crop${i%3}" style="${style}">`);
+		
+		$( "#baluster" ).append(`<div data-id="${i}" class="baluster crop${i%3} balusterBorder balusterDrop" style="${style}"></div>`);
+	}	
+
+
+	var topBalusterOffset = (STATE == 0)? 1 : 0;
+	var topBaluster = initTop - number * 2.34 + topBalusterOffset;
+	var leftBaluster = initLeft + (topLeftOffset / 2.0) + number * 2.82;
+
+	for(var i=0;i<8;i++)
+	{
+		var left = leftBaluster + i * 0.94;
+		var style = `top:${topBaluster}rem;left:${left}rem;z-index:1`;
+		$( "#baluster" ).append(`<div data-id="${NUM + i}" class="baluster balusterBorder balusterDrop" style="${style}"></div>`);
+	}
+}
+
 
 function drawNewels(number, newel){
 
@@ -139,11 +174,22 @@ function drawNewels(number, newel){
 
 
 
-function draw(number, baluster, newel){
+function draw(number, baluster, newel, clearBalusters){
 	drawHandrails(number);
 	drawStairs(number);
-	drawBalusters(number, baluster);
 	drawNewels(number, newel);
+
+	if(DESIGN == 0)
+	{
+		drawBalusters(number, baluster);
+	}else{
+	
+		if(clearBalusters)
+		{
+			drawBalusterPlaceholders(number);
+			appendDropEvents();
+		}
+	}
 
 	if(KNEEWALL == 1){
 		drawKneewall(number);

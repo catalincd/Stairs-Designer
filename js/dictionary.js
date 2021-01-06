@@ -175,20 +175,21 @@ var DICTIONARY = [
   [ '6203', 'LJ-6203' ],
   [ 'P3910', 'LJP-3910' ],
   [ 'NWL14048sb', 'LI-NWL14048'],
-  ['6109P1', 'LJ-6109P1'],
-  ['6210P', 'LJ-6210P'],
-  ['6400P', 'LJ-6400P'],
-  ['6900P', 'LJ-6900P'],
-  ['6A10P1', 'LJ-6A10P1'],
-  ['6B10P1', 'LJ-6B10P1'],
-  ['6005', 'LJ-6005']
+  [ '6109P1', 'LJ-6109P1'],
+  [ '6210P', 'LJ-6210P'],
+  [ '6400P', 'LJ-6400P'],
+  [ '6900P', 'LJ-6900P'],
+  [ '6A10P1', 'LJ-6A10P1'],
+  [ '6B10P1', 'LJ-6B10P1'],
+  [ '6005', 'LJ-6005']
 ];
 
 
 var map = new Map(DICTIONARY);	
 
 function getName(key){
-	return map.get(key);
+  var name = map.get(key);
+	return (name === undefined? key : name);
 }
 
 
@@ -197,7 +198,7 @@ function parseName(key){
   var name = getName(key);
   if(name === undefined)
   {
-    return undefined;
+    return key;
   }
 
   
@@ -210,7 +211,6 @@ function parseName(key){
   }
   else
   {
-    console.log(key);
     return key;
   }
 }

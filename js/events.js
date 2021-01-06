@@ -1,26 +1,35 @@
 $(document).on("click", ".balusterItem", function(e){
-	selectBaluster($(this));
-	resetBuy();
-	reset();
+	if(DESIGN == 0){
+		selectBaluster($(this));
+		checkBuy();
+		reset();
+	}
 });
 
 $(document).on("click", ".newelItem", function(){
 	selectNewel($(this));
-	reset();
+	checkBuy();
+	reset(DESIGN == 0);
 });
 
 $(document).on("click", ".handrailItem", function(){
 	selectHandrail($(this));
+	checkBuy();
 });
 
+$(document).on("click", "#clearButton", function(){
+	reset();
+	resetBuy();
+});
+
+$(document).on("click", "#autoCompleteButton", function(){
+	autoComplete();
+});
+
+
 function selectBaluster(e){
-	if(SELECTED_BALUSTER_ITEM !== undefined)
-	{
-		SELECTED_BALUSTER_ITEM.css("background", "transparent");
-		SELECTED_BALUSTER_ITEM.css("border", "none");
-		SELECTED_BALUSTER_ITEM.find("p").removeClass("selected");
-		SELECTED_BALUSTER_ITEM.removeClass("selected");
-	}
+	
+	deselectCurrentBaluster();
 
 	SELECTED_BALUSTER_ITEM = e;
 	SELECTED_BALUSTER_ITEM.css("background", SELECTOR_BACKGROUND);
@@ -30,10 +39,20 @@ function selectBaluster(e){
 	SELECTED_BALUSTER_ID = SELECTED_BALUSTER_ITEM.data("id");
 	BALUSTER = balusters[SELECTED_BALUSTER_ID];
 
-	parseType(SELECTED_BALUSTER_ID);
+	//parseType(SELECTED_BALUSTER_ID);
 
-	$("#balusterProduct").empty();
 	$("#balusterProduct").append(`<div class="balusterProductItem"><img src="${RES}/balusters/${balusters[SELECTED_BALUSTER_ID]}.png"><p>${getName(balusters[SELECTED_BALUSTER_ID])}</p></div>`);
+}
+
+function deselectCurrentBaluster(q = ""){
+	$("#balusterProduct").html(q);
+	if(SELECTED_BALUSTER_ITEM !== undefined)
+	{
+		SELECTED_BALUSTER_ITEM.css("background", "transparent");
+		SELECTED_BALUSTER_ITEM.css("border", "none");
+		SELECTED_BALUSTER_ITEM.find("p").removeClass("selected");
+		SELECTED_BALUSTER_ITEM.removeClass("selected");
+	}
 }
 
 function selectNewel(e){
@@ -50,8 +69,8 @@ function selectNewel(e){
 	$("#newelProduct").append(`<div class="newelProductItem"><img src="${RES}/newels/${newels[SELECTED_NEWEL_ID]}.png"><p>${getName(newels[SELECTED_NEWEL_ID])}</p></div>`);
 }
 
-function deselectCurrentNewel(){
-	$("#newelProduct").empty();
+function deselectCurrentNewel(q = ""){
+	$("#newelProduct").html(q);
 	if(SELECTED_NEWEL_ITEM !== undefined)
 	{
 		SELECTED_NEWEL_ITEM.css("background", "transparent");
@@ -76,8 +95,8 @@ function selectHandrail(e){
 	$("#handrailProduct").append(`<div class="handrailProductItem"><img src="${RES}/handrails/${handrails[SELECTED_HANDRAIL_ID]}.png"><p>${getName(handrails[SELECTED_HANDRAIL_ID])}</p></div>`);
 }
 
-function deselectCurrentHandrail(){
-	$("#handrailProduct").empty();
+function deselectCurrentHandrail(q = ""){
+	$("#handrailProduct").html(q);
 	if(SELECTED_HANDRAIL_ITEM !== undefined)
 	{
 		SELECTED_HANDRAIL_ITEM.css("background", "transparent");
@@ -114,15 +133,76 @@ $('input:checkbox[name="kneewallInput"]').change(
 		reset();
 });
 
+$('input:checkbox[name="designInput"]').change(
+	function(){
+	    DESIGN = $(this).is(':checked')? 1:0;
+	    resetAssets();
+		reset();
+});
 
 
+function checkDesign(){
+	if(DESIGN == 0){
+		$("#balusterGallery").find(".promoTextRight").html(`<p>Click to select</p>`);
+		$("#balusterGallery").find(".balusterItem").attr('draggable', 'false');
+		$("#balusterGallery").find(".balusterItem").removeClass('dragItem');
+	}else{
+		$("#balusterGallery").find(".promoTextRight").html(`<p>Drag and drop</p>`);
+		$("#balusterGallery").find(".balusterItem").addClass('dragItem');
+		$("#balusterGallery").find(".balusterItem").attr('draggable', 'true');
+		$(document).on("dragstart", ".balusterItem", function(e){drag(e)});
+	}
+}
 
-function reset(){
-	$("#baluster").empty();
+function appendDropEvents(){
+	$(document).on("dragover", ".balusterDrop", function(e){dragOver(e);});
+	$(document).on("dragleave", ".balusterDrop", function(e){dragLeave(e);});
+	$(document).on("drop", ".balusterDrop", function(e){drop(e);});
+}
+
+function autoComplete(){
+	var CURRENT_SELECTED = [];
+
+	$(".baluster").each(function(e){
+		var childImg = $(this).find("img");
+		if(childImg != undefined){
+			var currentId = $(childImg).data("id");
+			if(currentId != undefined)
+				CURRENT_SELECTED.push(currentId);
+		}
+	});
+
+	if(CURRENT_SELECTED.length > 0){
+		$(".baluster").removeClass('balusterBorder');
+
+		var allBalusters = $(".baluster").toArray();
+		console.log(allBalusters.length)
+
+		for(var i=0;i<allBalusters.length;i++){
+			var thisId = CURRENT_SELECTED[i % CURRENT_SELECTED.length];
+			$(allBalusters[i]).html(`<img data-id="${thisId}" src="${RES}/balusters/${balusters[thisId]}.png">`);
+		}
+
+	}
+	else alert("Please select at least one baluster to auto-complete.");
+
+
+	
+
+}
+
+function reset(clearBalusters = true){
+	if(clearBalusters)$("#baluster").empty();
 	$("#handrail").empty();
 	$("#newel").empty();
 	$("#stair").empty();
-	$("#kneewall").empty();
+	$("#kneewall").empty();	
+
+	if(DESIGN == 0){
+		$("#roomButtons").hide(300);
+	}else{
+		$("#roomButtons").show(300);
+	}
 
 
 	var ROOM_WIDTH = $("#room").width() / rem();
@@ -131,20 +211,29 @@ function reset(){
 	LEFT = (ROOM_WIDTH - 12.5 - x) / 2.0;
 	TOP = (36.0 - 15 + y) / 2.0;
 
-	draw(NUM, BALUSTER, NEWEL);
+	draw(NUM, BALUSTER, NEWEL, clearBalusters);
 }
 
 function resetBuy(){
+	BALUSTER = "";
 	NEWEL = "";
 	HANDRAIL = "";
 
+	SELECTED_BALUSTER_ID = -1;
 	SELECTED_NEWEL_ID = -1;
 	SELECTED_HANDRAIL_ID = -1;
 
-	deselectCurrentNewel();
-	deselectCurrentHandrail();
+	deselectCurrentBaluster(`<div class="selectProduct"><h1>SELECT A BALUSTER</h1></div>`);
+	deselectCurrentNewel(`<div class="selectProduct"><h1>SELECT A NEWEL</h1></div>`);
+	deselectCurrentHandrail(`<div class="selectProduct"><h1>SELECT A HANDRAIL</h1></div>`);
+
+	$("#buyButton").hide();
 }
 
+function checkBuy(){
+	if(SELECTED_BALUSTER_ID > -1 && SELECTED_NEWEL_ID > -1 && SELECTED_HANDRAIL_ID > -1)
+		$("#buyButton").show();
+}
 
 function resetAssets(){
 	if(STATE == 0){
@@ -170,9 +259,10 @@ function resetAssets(){
 			insertNewelsOverIron();
 			insertHandrailsOverIron();
 		}
-
 	}
 
+	resetBuy();
+	checkDesign();
 	/*selectBaluster($(".balusterItem").first());
 	selectNewel($(".newelItem").first());
 	selectHandrail($(".handrailItem").first());*/
@@ -197,13 +287,20 @@ window.onresize = reset;
 
 
 var roomTop = 0;
+var roomHeight = 0;
+var footerTop = 0;
 var marginOffset = 0;
 var floatEnabled = false;
 
 $(document).ready(function(){
 	marginOffset = (rem() * 1.5);
 	roomTop = $('#room').position().top;
+	roomHeight = $('#room').height();
+	footerTop = $('.footer').position().top - (rem() * 0.5);
+
 	checkPosition();
+
+	$(window).bind("resize", checkPosition);
 });
 
 
@@ -212,19 +309,22 @@ $(window).scroll(function() {
 		var q = $(this).scrollTop() - roomTop + marginOffset;
 		if(q < 0) q = 0;
    		$('#room').css('top', q + "px");
+
+   		if($('#room').position().top + roomHeight > footerTop){
+   			$('#room').css('top', (footerTop - roomTop - roomHeight)+"px");
+   		}
 	}
 });
 
 
-$(document).load($(window).bind("resize", checkPosition));
+
 
 function checkPosition()
 {
-	if (window.matchMedia('(max-width: 1100px)').matches) {
+	if (window.matchMedia('(max-width: 1280px)').matches) {
         floatEnabled = false;
-
+        //$("#designDiv").html("<h2>PERSONALIZED DESIGN IS NOT SUPPORTED ON THIS DEVICE</h2>");
     } else {
         floatEnabled = true;
     }
-
 }

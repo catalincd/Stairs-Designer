@@ -13,10 +13,12 @@
 </head>
 <body>
 	<div id="container">
-		<div id="title" style="text-align: center">
+		<header>
+			<div id="title" style="text-align: center">
 			<img class="logo" src="res/logo.png">
 			<h1>Stair Service Online Designer Tool</h1><br><br>
-		</div>
+			</div>
+		</header>
 		
 		<section id="controls" class="bordered">
 
@@ -42,6 +44,28 @@
 					</label>
 					<div class="switchText" align="left">OVER THE NEWEL</div>
 				</div>
+			</div>	
+
+			<div class="">
+				<h2>CHOOSE THE NUMBER OF STEPS</h2>
+				<div class="control stepsControl">
+					<div class="switchText">STEPS</div>
+					<div id="stepsSlider">
+						<input type="range" min="2" max="8" value="5" class="sliderRange" id="steps" name="steps">
+					</div>
+				</div>
+			</div>
+
+			<div class="">
+				<h2 style="margin-left: -0.6rem">DESIGN&nbsp;&nbsp;</h2>
+				<div class="control" id="designDiv">
+					<div class="switchText" align="right">AUTO</div>
+					<label class="switch">
+					  	<input type="checkbox" id="designInput" name="designInput">
+					  	<span class="slider colored3 round"></span>
+					</label>
+					<div class="switchText" align="left">CUSTOM</div>
+				</div>
 			</div>
 
 			<div class="">
@@ -53,16 +77,6 @@
 					  	<span class="slider colored2 round"></span>
 					</label>
 					<div class="switchText" align="left">OFF</div>
-				</div>
-			</div>
-
-			<div class="">
-				<h2>CHOOSE THE NUMBER OF STEPS</h2>
-				<div class="control stepsControl">
-					<div class="switchText">STEPS</div>
-					<div id="stepsSlider">
-						<input type="range" min="2" max="8" value="5" class="sliderRange" id="steps" name="steps">
-					</div>
 				</div>
 			</div>
 
@@ -111,6 +125,15 @@
 				<div id="newel"></div>
 				<div id="baluster"></div>
 				<div id="kneewall"></div>
+
+				<div id="roomButtons">
+					<div id="autoCompleteButton">
+						<p>AUTO COMPLETE</p>
+					</div>
+					<div id="clearButton">
+						<p>CLEAR</p>
+					</div>
+				</div>
 			</section>
 
 			<section id="products" class="wrapped">
@@ -128,8 +151,13 @@
 			</section>
 
 		</div>
-		
+
+		<div class="footer bordered">
+			<h5>This designer is just an orientative illustration.</h5>
+		</div>
 	</div>
+
+	<script src="js/drag.js"></script>
 	<script src="js/newels.js"></script>
 	<script src="js/handrails.js"></script>
 	<script src="js/balusters.js"></script>
