@@ -26,10 +26,89 @@ function addLogo(pdf){
 	logo.src = RES + `/logoBlack.png`;
 	logo.onload = function(){
 		pdf.addImage(logo, 'png', 12, 12, 68.59, 15);
-		loadProducts(pdf);
+		if(DESIGN == 0){
+			loadProducts(pdf);
+		}else{
+			loadDesignedProducts(pdf);
+		}
 	};
 }
 
+function loadDesignedProducts(pdf){
+	var loaded = 0;
+
+	var newelImg = new Image();
+	newelImg.crossOrigin="anonymous";
+	newelImg.src = RES + `/newels/${newels[SELECTED_NEWEL_ID]}.png`;
+	newelImg.onload = function(){
+		loaded++;
+		if(loaded == 2){
+			loadDesignedBalusters(pdf, newelImg, handrailImg);
+		}
+	};
+
+	var handrailImg = new Image();
+	handrailImg.crossOrigin="anonymous";
+	handrailImg.src = RES + `/handrails/${handrails[SELECTED_HANDRAIL_ID]}.png`;
+	handrailImg.onload = function(){
+		loaded++;
+		if(loaded == 2){
+			var images = [];
+			//console.log(BALUSTER_ARRAY);
+			loadDesignedBalusters(pdf, images, newelImg, handrailImg);
+		}
+	};
+}
+
+function loadDesignedBalusters(pdf, images, newelImg, handrailImg){
+	var img = new Image();
+	img.crossOrigin="anonymous";
+	var name = balusters[BALUSTER_ARRAY[images.length]];
+	//console.log(name);
+	img.src = RES + `/balusters/${name}.png`;
+	img.onload = function(){
+		images.push(img);
+		if(images.length == BALUSTER_ARRAY.length){
+			generateDesignedProducts(pdf, images, newelImg, handrailImg);
+		}
+		else{
+			 loadDesignedBalusters(pdf, images, newelImg, handrailImg);
+		}
+	};
+}
+
+function generateDesignedProducts(pdf, images, newelImg, handrailImg){
+	var TEXT_TOP = 280;
+	var IMG_BOTTOM = 270;
+	var IMG_FACTOR = 0.3;
+
+	var MARGINS = 20;
+	var CANVAS = 297 - (2 * MARGINS);
+	var OFFSET = (CANVAS / parseFloat(images.length + 4));
+
+	var newelX = OFFSET * (images.length + 1);
+	var handrailX = OFFSET * (images.length + 2);
+
+	var balusterSizeX = 16 * IMG_FACTOR;
+	var balusterSizeY = 200 * IMG_FACTOR;
+	for(var i=0;i<images.length;i++){
+		var posX = OFFSET * (i + 1);
+		pdf.addImage(images[i], 'png', posX - (balusterSizeX / 2), IMG_BOTTOM - balusterSizeY, balusterSizeX, balusterSizeY);
+		pdf.text(posX - 10, TEXT_TOP, getName(balusters[BALUSTER_ARRAY[i]]));
+	}
+
+	var newelSizeX = 45 * IMG_FACTOR;
+	var newelSizeY = 250 * IMG_FACTOR;
+	pdf.addImage(newelImg, 'png', newelX - (newelSizeX / 2), IMG_BOTTOM - newelSizeY, newelSizeX, newelSizeY);
+	pdf.text(newelX - 10, TEXT_TOP, getName(newels[SELECTED_NEWEL_ID]));
+
+	var handrailSizeX = 170 * IMG_FACTOR * 0.5;
+	var handrailSizeY = 130 * IMG_FACTOR * 0.5;
+	pdf.addImage(handrailImg, 'png', handrailX - (handrailSizeX / 2), IMG_BOTTOM - handrailSizeY, handrailSizeX, handrailSizeY);
+	pdf.text(handrailX - 10, TEXT_TOP, getName(handrails[SELECTED_HANDRAIL_ID]));
+
+	generateDesignedBalusters(images, pdf);
+}
 
 function loadProducts(pdf){
 	var loaded = 0;
@@ -88,6 +167,39 @@ function generateProducts(pdf, balusterImg, newelImg, handrailImg){
 	pdf.text(140, TEXT_TOP, getName(handrails[SELECTED_HANDRAIL_ID]));
 
 	generateBalusters(balusterImg, pdf);
+}
+
+
+function generateDesignedBalusters(images, pdf){
+
+	var xNUM = (NUM-1) * 3 + 1;
+	
+	var balusterSizeX = 16 * GENERATE_SCALE_FACTOR;
+	var balusterSizeY = 200 * GENERATE_SCALE_FACTOR;
+
+	var balusterOffsetX = 17.9 * GENERATE_SCALE_FACTOR;
+	var balusterOffsetY = 15 * GENERATE_SCALE_FACTOR;
+
+	var initTop = GENERATE_TOP + xNUM * balusterOffsetY;
+	var initLeft = GENERATE_LEFT + (40 * GENERATE_SCALE_FACTOR);
+	
+	for(var i=0;i<xNUM;i++)
+	{
+		var top = initTop - i * balusterOffsetY;
+		var left = initLeft + i * balusterOffsetX;
+		pdf.addImage(images[i%images.length], 'png', left, top, balusterSizeX, balusterSizeY);///Crop at i%3==1
+	}	
+
+	var topBaluster = GENERATE_TOP - ((STATE == 0)? 0 : (1.5 * balusterOffsetY));
+	var leftBaluster = initLeft + (xNUM+2) * balusterOffsetX;
+
+	for(var i=0;i<8;i++)
+	{
+		var left = leftBaluster + i * balusterOffsetX;
+		pdf.addImage(images[(i + xNUM)%images.length], 'png', left, topBaluster, balusterSizeX, balusterSizeY);
+	}
+
+	loadHandrails(pdf);	
 }
 
 

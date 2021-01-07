@@ -121,10 +121,28 @@
 
 
 .balusterProductItem, .newelProductItem, .handrailProductItem{
+	display: inline-block;
 	border: 2px solid rgba(126, 41, 30, 0);
 	margin-bottom: 2rem;
 	text-align: center;
 }
+
+.balusterProductItem{
+	margin-right: 0.3rem;
+}
+
+#balusterProduct, #newelProduct, #handrailProduct{
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+
+.selectA{
+	text-align: center;
+	font-size: 1.7rem;
+}
+
 
 .balusterProductItem img{
 	margin-top: 5rem;

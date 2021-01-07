@@ -32,7 +32,7 @@ function drawKneewall(number){
 	var topFillLeftOffset = 0.55;
 	var topFillHeight = number * 2.34 + 5.36 - topFillOffset;
 	var topFillWidth = 9.87;
-	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${topFillWidth}rem;height:${topFillHeight}rem;top:${initTop + topFillOffset - number * 2.34}rem;left:${initLeft + topFillLeftOffset + number * 2.82}rem;">`);	
+	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${topFillWidth}rem;height:${topFillHeight}rem;top:${initTop + topFillOffset - number * 2.34}rem;left:${initLeft + topFillLeftOffset + number * 2.82}rem;z-index:60">`);	
 	
 
 	
@@ -40,21 +40,21 @@ function drawKneewall(number){
 	var fillHeight = fillWidth / 1.17;
 	var fillOffset = TOP + 12 - fillHeight;
 	var fillLeftOffset = initLeft + 1.3;
-	$( "#kneewall" ).append(`<img src="${RES}/kneeFill.png" class="kneeFill" style="width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;">`);	
+	$( "#kneewall" ).append(`<img src="${RES}/kneeFill.png" class="kneeFill" style="width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;z-index:60">`);	
 	
 
 	var fill2Width = (number) * 2.82;
 	var fill2Height = 2.65;
 	var fill2Offset = TOP + 12;
 	var fill2LeftOffset = initLeft + 1.84;
-	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${fill2Width}rem;height:${fill2Height}rem;top:${fill2Offset}rem;left:${fill2LeftOffset}rem;">`);	
+	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${fill2Width}rem;height:${fill2Height}rem;top:${fill2Offset}rem;left:${fill2LeftOffset}rem;z-index:60">`);	
 
 
 
 
 
-	$( "#kneewall" ).append(`<img src="${RES}/kneeBottom.png" class="knee bottom" style="top:${initTop}rem;left:${initLeft}rem;">`);	
-	$( "#kneewall" ).append(`<img src="${RES}/kneeTop.png" class="knee top" style="top:${initTop + topOffset - number * 2.34}rem;left:${initLeft + topLeftOffset + number * 2.82}rem;">`);	
+	$( "#kneewall" ).append(`<img src="${RES}/kneeBottom.png" class="knee bottom" style="top:${initTop}rem;left:${initLeft}rem;z-index:60">`);	
+	$( "#kneewall" ).append(`<img src="${RES}/kneeTop.png" class="knee top" style="top:${initTop + topOffset - number * 2.34}rem;left:${initLeft + topLeftOffset + number * 2.82}rem;z-index:60">`);	
 
 
 
@@ -62,8 +62,8 @@ function drawKneewall(number){
 	{
 		var top = initTop - i * 2.34;
 		var left = initLeft + i * 2.82;
-		var z = zIndexOffset + number - i;
-		var style = `top:${top}rem;left:${left}rem;`;
+		var z = 60;
+		var style = `top:${top}rem;left:${left}rem;z-index:60`;
 		$( "#kneewall" ).append(`<img src="${RES}/kneeMid.png" class="knee" style="${style}">`);	
 	}	
 

@@ -19,7 +19,8 @@ $(document).on("click", ".handrailItem", function(){
 
 $(document).on("click", "#clearButton", function(){
 	reset();
-	resetBuy();
+	//resetBuy();
+	resetClear();
 });
 
 $(document).on("click", "#autoCompleteButton", function(){
@@ -109,6 +110,10 @@ function deselectCurrentHandrail(q = ""){
 
 $('input[name="steps"]').change(
 	function(){
+		if(DESIGN == 1){
+			$(".balusterItem").removeClass("selected");
+			$(".balusterItem").find("p").removeClass("selected");
+		}
 		NUM = $(this).val();
 		reset();
 });
@@ -176,7 +181,6 @@ function autoComplete(){
 		$(".baluster").removeClass('balusterBorder');
 
 		var allBalusters = $(".baluster").toArray();
-		console.log(allBalusters.length)
 
 		for(var i=0;i<allBalusters.length;i++){
 			var thisId = CURRENT_SELECTED[i % CURRENT_SELECTED.length];
@@ -185,10 +189,36 @@ function autoComplete(){
 
 	}
 	else alert("Please select at least one baluster to auto-complete.");
+}
 
+function parseProducts(){
+	var CURRENT_SELECTED = [];
+	$("#balusterProduct").empty();
 
-	
+	$(".balusterItem").removeClass("selected");
+	$(".balusterItem").find("p").removeClass("selected");
 
+	$(".baluster").each(function(e){
+		var childImg = $(this).find("img");
+		if(childImg != undefined){
+			var currentId = $(childImg).data("id");
+			if(currentId != undefined && !CURRENT_SELECTED.includes(currentId))
+			{
+				$(".balusterItem").each(function(e){
+					if($(this).data("id") == currentId){
+						$(this).addClass("selected");
+						$(this).find("p").addClass("selected");
+					}
+				});
+				
+
+				CURRENT_SELECTED.push(currentId);
+				$("#balusterProduct").append(`<div class="balusterProductItem"><img src="${RES}/balusters/${balusters[currentId]}.png"><p>${getName(balusters[currentId])}</p></div>`);
+			}
+		}
+	});
+	BALUSTER_ARRAY = CURRENT_SELECTED;
+	//console.log(CURRENT_SELECTED);
 }
 
 function reset(clearBalusters = true){
@@ -214,7 +244,17 @@ function reset(clearBalusters = true){
 	draw(NUM, BALUSTER, NEWEL, clearBalusters);
 }
 
+function resetClear(){
+	BALUSTER_ARRAY = [];
+	$(".balusterItem").removeClass("selected");
+	$(".balusterItem").find("p").removeClass("selected");
+	deselectCurrentBaluster(`<div class="selectProduct"><h1 class="selectA">SELECT A BALUSTER</h1></div>`);
+	$("#buyButton").hide();
+}
+
 function resetBuy(){
+	BALUSTER_ARRAY = [];
+
 	BALUSTER = "";
 	NEWEL = "";
 	HANDRAIL = "";
@@ -223,16 +263,25 @@ function resetBuy(){
 	SELECTED_NEWEL_ID = -1;
 	SELECTED_HANDRAIL_ID = -1;
 
-	deselectCurrentBaluster(`<div class="selectProduct"><h1>SELECT A BALUSTER</h1></div>`);
-	deselectCurrentNewel(`<div class="selectProduct"><h1>SELECT A NEWEL</h1></div>`);
-	deselectCurrentHandrail(`<div class="selectProduct"><h1>SELECT A HANDRAIL</h1></div>`);
+	deselectCurrentBaluster(`<div class="selectProduct"><h1 class="selectA">SELECT A BALUSTER</h1></div>`);
+	deselectCurrentNewel(`<div class="selectProduct"><h1 class="selectA">SELECT A NEWEL</h1></div>`);
+	deselectCurrentHandrail(`<div class="selectProduct"><h1 class="selectA">SELECT A HANDRAIL</h1></div>`);
+
+	$(".balusterItem").removeClass("selected");
+	$(".balusterItem").find("p").removeClass("selected");
 
 	$("#buyButton").hide();
 }
 
 function checkBuy(){
-	if(SELECTED_BALUSTER_ID > -1 && SELECTED_NEWEL_ID > -1 && SELECTED_HANDRAIL_ID > -1)
-		$("#buyButton").show();
+	if(DESIGN == 0)
+	{
+		if(SELECTED_BALUSTER_ID > -1 && SELECTED_NEWEL_ID > -1 && SELECTED_HANDRAIL_ID > -1)
+			$("#buyButton").show();
+	}else{
+		if(BALUSTER_ARRAY.length > 0 && SELECTED_NEWEL_ID > -1 && SELECTED_HANDRAIL_ID > -1)
+			$("#buyButton").show();
+	}
 }
 
 function resetAssets(){

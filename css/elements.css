@@ -22,12 +22,11 @@
 
 #baluster{
 	position: absolute;
-	z-index: 1;
+	z-index: 3;
 }
 
 #kneewall{
 	position: absolute;
-	z-index: 60;
 }
 
 .step{
@@ -49,6 +48,7 @@
 }
 
 .balusterBorder{
+	z-index: 100 !important;
 	width: 0.82rem;
 	border: 1px rgba(100, 100, 100, 1) solid;
 	animation: flicker 0.5s linear 0.5s 2;
@@ -96,6 +96,7 @@
 .knee{
 	position: absolute;
 	height: 5rem;
+	pointer-events: none;
 }
 
 .kneeFill{

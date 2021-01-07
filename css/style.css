@@ -1,6 +1,6 @@
  @import url("https://use.typekit.net/pxg6bop.css");
 
- *:not(.balusterItem){
+ *{
  	margin: 0;
  	padding: 0;
  	box-sizing: border-box;
@@ -76,9 +76,9 @@ body{
 #actualProducts{
 	display:grid;
 	justify-content: bottom;
-	grid-template-columns: repeat(3, 1fr);
+	align-content: center;
+	grid-template-columns: repeat(auto-fit, minmax(20%, 33%));
 }
-
 
 
 
