@@ -318,7 +318,8 @@ function resetAssets(){
 }
 
 
-$("#buyButton").on("click", function(){
+$(document).on("click", "#buyButton", function(){
+	//reset();
 	generatePdf();
 });
 
@@ -331,7 +332,7 @@ var rem = function rem() {
         }
     }();
 
-window.onresize = reset;
+
 
 
 

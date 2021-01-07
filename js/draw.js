@@ -38,19 +38,17 @@ function drawKneewall(number){
 	
 	var fillWidth = (number) * 2.82;
 	var fillHeight = fillWidth / 1.17;
-	var fillOffset = TOP + 12 - fillHeight;
+	var fillOffset = TOP + 12.1 - fillHeight;
 	var fillLeftOffset = initLeft + 1.3;
-	$( "#kneewall" ).append(`<img src="${RES}/kneeFill.png" class="kneeFill" style="width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;z-index:60">`);	
-	
+	//$( "#kneewall" ).append(`<img src="${RES}/kneeFill.png" class="kneeFill" style="width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;z-index:60">`);	
+	var path = "clip-path: polygon(100% 0, 0 100%, 100% 100%);background:#b0a597;";
+	$("#kneewall").append(`<div class="kneeFill" style="${path};width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;z-index:60"></div>`);
 
 	var fill2Width = (number) * 2.82;
 	var fill2Height = 2.65;
 	var fill2Offset = TOP + 12;
 	var fill2LeftOffset = initLeft + 1.84;
 	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${fill2Width}rem;height:${fill2Height}rem;top:${fill2Offset}rem;left:${fill2LeftOffset}rem;z-index:60">`);	
-
-
-
 
 
 	$( "#kneewall" ).append(`<img src="${RES}/kneeBottom.png" class="knee bottom" style="top:${initTop}rem;left:${initLeft}rem;z-index:60">`);	

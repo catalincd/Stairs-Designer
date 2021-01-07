@@ -9,6 +9,7 @@ function generatePdf(){
 	GENERATE_LEFT = 70 - (40 * (NUM-2) / 6.0);
 
 	var pdf = new jsPDF('p', 'mm', [297, 210]);
+	pdf.setFontSize(10);
 	pdf.setProperties({
 		title: 'Stair Service Design',
 		subject: 'Stair Service Design',		
@@ -82,30 +83,30 @@ function generateDesignedProducts(pdf, images, newelImg, handrailImg){
 	var IMG_BOTTOM = 270;
 	var IMG_FACTOR = 0.3;
 
-	var MARGINS = 20;
+	var MARGINS = 15;
 	var CANVAS = 297 - (2 * MARGINS);
-	var OFFSET = (CANVAS / parseFloat(images.length + 4));
+	var OFFSET = parseFloat(parseFloat(CANVAS) / parseFloat(images.length * 2));
 
-	var newelX = OFFSET * (images.length + 1);
-	var handrailX = OFFSET * (images.length + 2);
+	var newelX = MARGINS + OFFSET * (images.length);
+	var handrailX = newelX + OFFSET;
 
 	var balusterSizeX = 16 * IMG_FACTOR;
 	var balusterSizeY = 200 * IMG_FACTOR;
 	for(var i=0;i<images.length;i++){
-		var posX = OFFSET * (i + 1);
+		var posX = MARGINS + OFFSET * parseFloat(i);
 		pdf.addImage(images[i], 'png', posX - (balusterSizeX / 2), IMG_BOTTOM - balusterSizeY, balusterSizeX, balusterSizeY);
-		pdf.text(posX - 10, TEXT_TOP, getName(balusters[BALUSTER_ARRAY[i]]));
+		pdf.text(posX - 7, TEXT_TOP, getName(balusters[BALUSTER_ARRAY[i]]));
 	}
 
 	var newelSizeX = 45 * IMG_FACTOR;
 	var newelSizeY = 250 * IMG_FACTOR;
 	pdf.addImage(newelImg, 'png', newelX - (newelSizeX / 2), IMG_BOTTOM - newelSizeY, newelSizeX, newelSizeY);
-	pdf.text(newelX - 10, TEXT_TOP, getName(newels[SELECTED_NEWEL_ID]));
+	pdf.text(newelX - 7, TEXT_TOP, getName(newels[SELECTED_NEWEL_ID]));
 
 	var handrailSizeX = 170 * IMG_FACTOR * 0.5;
 	var handrailSizeY = 130 * IMG_FACTOR * 0.5;
 	pdf.addImage(handrailImg, 'png', handrailX - (handrailSizeX / 2), IMG_BOTTOM - handrailSizeY, handrailSizeX, handrailSizeY);
-	pdf.text(handrailX - 10, TEXT_TOP, getName(handrails[SELECTED_HANDRAIL_ID]));
+	pdf.text(handrailX - 7, TEXT_TOP, getName(handrails[SELECTED_HANDRAIL_ID]));
 
 	generateDesignedBalusters(images, pdf);
 }
