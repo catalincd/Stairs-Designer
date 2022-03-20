@@ -1,3 +1,34 @@
+#room{
+	grid-column: 2 / 3; 
+	grid-row:1;
+	border:4px solid #7E291E;
+	background: #E9EBEC;
+	border-radius: 0.5rem;
+	min-width: 36rem;
+	height: 36rem;
+	display: inline-block;
+	position: relative;
+	transition: all .3s ease, top 0s;
+}
+
+#stair{
+	position: absolute;
+}
+
+#handrail{
+	position: absolute;
+	z-index: 10;
+}
+
+#baluster{
+	position: absolute;
+	z-index: 3;
+}
+
+#kneewall{
+	position: absolute;
+}
+
 .step{
 	position: absolute;
 	height: 5rem;
@@ -13,6 +44,44 @@
 	position: absolute;
 	height: 10.23rem;
 	transform: translateY(-10.23rem);
+	overflow: hidden;
+}
+
+.balusterBorder{
+	z-index: 100 !important;
+	width: 0.82rem;
+	border: 1px rgba(100, 100, 100, 1) solid;
+	animation: flicker 0.5s linear 0.5s 2;
+	transition: all 0.2s linear;
+}
+
+@keyframes flicker {
+  0%   {border-color:rgba(100, 100, 100, 1);}
+  50%   {border-color:rgba(100, 100, 100, 0);}
+  100%   {border-color:rgba(100, 100, 100, 1);}
+}
+
+.sizeFlick{
+	animation: sizeFlicker 0.5s linear 0.1s;
+}
+
+@keyframes sizeFlicker {
+  0%   {opacity: 1;}
+  50%   {opacity: 0;}
+  100%   {opacity: 1;}
+}
+
+.balusterHoverBorder{
+	border: 3px blue solid;
+}
+
+.baluster img{
+	height: 10.23rem;
+}
+
+
+.crop1{
+	height: 9rem;
 }
 
 .newel{
@@ -21,6 +90,19 @@
 	transform: translateY(-100%);
 }
 
-.crop1{
-	height: 9rem;
+
+
+
+.knee{
+	position: absolute;
+	height: 5rem;
+	pointer-events: none;
+}
+
+.kneeFill{
+	position: absolute;
+}
+
+.knee.bottom{
+	height: 5.36rem;
 }

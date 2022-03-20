@@ -1,4 +1,3 @@
-
 function drawStairs(number){
 
 	var initTop = TOP + 12;
@@ -16,6 +15,56 @@ function drawStairs(number){
 		var style = `top:${top}rem;left:${left}rem;z-index:${z}`;
 		$( "#stair" ).append(`<img src="${RES}/stepMid.png" class="step" style="${style}">`);	
 	}	
+}
+
+function drawKneewall(number){
+
+	var initTop = TOP + 9.3;
+	var initLeft = LEFT;
+	var zIndexOffset = 5;
+	var topOffset = 1.7;
+	var topLeftOffset = 0.55;
+
+
+	
+
+	var topFillOffset = 3.75;
+	var topFillLeftOffset = 0.55;
+	var topFillHeight = number * 2.34 + 5.36 - topFillOffset;
+	var topFillWidth = 9.87;
+	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${topFillWidth}rem;height:${topFillHeight}rem;top:${initTop + topFillOffset - number * 2.34}rem;left:${initLeft + topFillLeftOffset + number * 2.82}rem;z-index:60">`);	
+	
+
+	
+	var fillWidth = (number) * 2.82;
+	var fillHeight = fillWidth / 1.17;
+	var fillOffset = TOP + 12.1 - fillHeight;
+	var fillLeftOffset = initLeft + 1.3;
+	//$( "#kneewall" ).append(`<img src="${RES}/kneeFill.png" class="kneeFill" style="width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;z-index:60">`);	
+	var path = "clip-path: polygon(100% 0, 0 100%, 100% 100%);background:#b0a597;";
+	$("#kneewall").append(`<div class="kneeFill" style="${path};width:${fillWidth}rem;height:${fillHeight}rem;top:${fillOffset}rem;left:${fillLeftOffset}rem;z-index:60"></div>`);
+
+	var fill2Width = (number) * 2.82;
+	var fill2Height = 2.65;
+	var fill2Offset = TOP + 12;
+	var fill2LeftOffset = initLeft + 1.84;
+	$( "#kneewall" ).append(`<img src="${RES}/kneeFillTop.png" class="kneeFill" style="width:${fill2Width}rem;height:${fill2Height}rem;top:${fill2Offset}rem;left:${fill2LeftOffset}rem;z-index:60">`);	
+
+
+	$( "#kneewall" ).append(`<img src="${RES}/kneeBottom.png" class="knee bottom" style="top:${initTop}rem;left:${initLeft}rem;z-index:60">`);	
+	$( "#kneewall" ).append(`<img src="${RES}/kneeTop.png" class="knee top" style="top:${initTop + topOffset - number * 2.34}rem;left:${initLeft + topLeftOffset + number * 2.82}rem;z-index:60">`);	
+
+
+
+	for(var i=1;i<number;i++)
+	{
+		var top = initTop - i * 2.34;
+		var left = initLeft + i * 2.82;
+		var z = 60;
+		var style = `top:${top}rem;left:${left}rem;z-index:60`;
+		$( "#kneewall" ).append(`<img src="${RES}/kneeMid.png" class="knee" style="${style}">`);	
+	}	
+
 }
 
 function drawHandrails(number, over=true){
@@ -36,22 +85,26 @@ function drawHandrails(number, over=true){
 	$( "#handrail" ).css("z-index", (STATE == 0)? "10" : "20");
 }
 
-function drawBalusters(number, baluster, newel){
+function drawBalusters(number, baluster){
+
+	if(baluster == "")return;
+
+
 	var NUM = (number-1) * 3 + 1;
 	var initTop = TOP + 12;
 	var initLeft = 2 + LEFT;
 	var newelLeftOffset = 2.2;
 	var topLeftOffset = (STATE == 0)? 0.1 : 0.5;
 
-	$( "#newel" ).append(`<img src="${RES}/newels/${newel}.png" class="newel" style="top:${initTop}rem;left:${initLeft - newelLeftOffset}rem;z-index:15">`);	
-	$( "#newel" ).append(`<img src="${RES}/newels/${newel}.png" class="newel" style="top:${initTop - number * 2.34}rem;left:${initLeft - newelLeftOffset + number * 2.82 + topLeftOffset}rem;z-index:15">`);	
-	
+
 	for(var i=0;i<NUM;i++)
 	{
 		var top = initTop - i * 0.78;
 		var left = initLeft + i * 0.94;
 		var style = `top:${top}rem;left:${left}rem;z-index:1`;
-		$( "#baluster" ).append(`<img src="${RES}/balusters/${baluster}.png" class="baluster crop${i%3}" style="${style}">`);
+		//$( "#baluster" ).append(`<img src="${RES}/balusters/${baluster}.png" class="baluster crop${i%3}" style="${style}">`);
+		
+		$( "#baluster" ).append(`<div class="baluster crop${i%3}" style="${style}"><img src="${RES}/balusters/${baluster}.png"></div>`);
 	}	
 
 
@@ -63,13 +116,80 @@ function drawBalusters(number, baluster, newel){
 	{
 		var left = leftBaluster + i * 0.94;
 		var style = `top:${topBaluster}rem;left:${left}rem;z-index:1`;
-		$( "#baluster" ).append(`<img src="${RES}/balusters/${baluster}.png" class="baluster" style="${style}">`);
+		$( "#baluster" ).append(`<div class="baluster" style="${style}"><img src="${RES}/balusters/${baluster}.png"></div>`);
+	}
+}
+
+function drawBalusterPlaceholders(number){
+
+	if(baluster == "")return;
+
+
+	var NUM = (number-1) * 3 + 1;
+	var initTop = TOP + 12;
+	var initLeft = 2 + LEFT;
+	var newelLeftOffset = 2.2;
+	var topLeftOffset = (STATE == 0)? 0.1 : 0.5;
+
+
+	for(var i=0;i<NUM;i++)
+	{
+		var top = initTop - i * 0.78;
+		var left = initLeft + i * 0.94;
+		var style = `top:${top}rem;left:${left}rem;z-index:1`;
+		//$( "#baluster" ).append(`<img src="${RES}/balusters/${baluster}.png" class="baluster crop${i%3}" style="${style}">`);
+		
+		$( "#baluster" ).append(`<div data-id="${i}" class="baluster crop${i%3} balusterBorder balusterDrop" style="${style}"></div>`);
+	}	
+
+
+	var topBalusterOffset = (STATE == 0)? 1 : 0;
+	var topBaluster = initTop - number * 2.34 + topBalusterOffset;
+	var leftBaluster = initLeft + (topLeftOffset / 2.0) + number * 2.82;
+
+	for(var i=0;i<8;i++)
+	{
+		var left = leftBaluster + i * 0.94;
+		var style = `top:${topBaluster}rem;left:${left}rem;z-index:1`;
+		$( "#baluster" ).append(`<div data-id="${NUM + i}" class="baluster balusterBorder balusterDrop" style="${style}"></div>`);
 	}
 }
 
 
-function draw(number, baluster, newel, over=true){
+function drawNewels(number, newel){
+
+	if(newel == "")return;
+
+	var NUM = (number-1) * 3 + 1;
+	var initTop = TOP + 12;
+	var initLeft = 2 + LEFT;
+	var newelLeftOffset = 2.2;
+	var topLeftOffset = (STATE == 0)? 0.1 : 0.5;
+
+	$( "#newel" ).append(`<img src="${RES}/newels/${newel}.png" class="newel" style="top:${initTop}rem;left:${initLeft - newelLeftOffset}rem;z-index:15">`);	
+	$( "#newel" ).append(`<img src="${RES}/newels/${newel}.png" class="newel" style="top:${initTop - number * 2.34}rem;left:${initLeft - newelLeftOffset + number * 2.82 + topLeftOffset}rem;z-index:15">`);	
+}
+
+
+
+function draw(number, baluster, newel, clearBalusters){
 	drawHandrails(number);
 	drawStairs(number);
-	drawBalusters(number, baluster, newel);
+	drawNewels(number, newel);
+
+	if(DESIGN == 0)
+	{
+		drawBalusters(number, baluster);
+	}else{
+	
+		if(clearBalusters)
+		{
+			drawBalusterPlaceholders(number);
+			appendDropEvents();
+		}
+	}
+
+	if(KNEEWALL == 1){
+		drawKneewall(number);
+	}
 }
